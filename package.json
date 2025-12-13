@@ -1,0 +1,24 @@
+{
+  "name": "playwright-tests-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test": "npx playwright test",
+    "test_docker": "cmd /c docker run --rm --ipc=host -v \"%cd%\":/app playwright-tests",
+    "pret": "npx prettier --write ."
+  },
+  "author": "anna",
+  "license": "ISC",
+  "description": "A simple test framework",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "prettier": "^3.7.4"
+  }
+}

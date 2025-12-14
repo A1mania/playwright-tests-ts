@@ -97,12 +97,20 @@ test("check product page opens on clicking continue shopping in the cart", async
   await expect(page.locator('[data-test="title"]')).toContainText("Products");
 });
 
-//failed then fixed test 
+//failed then fixed test
 
-test('check your info page opens when click checkout in the cart', async ({ page }) => {
-await page.locator('.inventory_list .inventory_item:first-child [class="btn btn_primary btn_small btn_inventory "]').click();
-await page.locator('[data-test="shopping-cart-link"]').click();
-await page.locator('[data-test="checkout"]').click();
-// await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Yours Information');
-await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Your Information');
-  });
+test("check your info page opens when click checkout in the cart", async ({
+  page,
+}) => {
+  await page
+    .locator(
+      '.inventory_list .inventory_item:first-child [class="btn btn_primary btn_small btn_inventory "]'
+    )
+    .click();
+  await page.locator('[data-test="shopping-cart-link"]').click();
+  await page.locator('[data-test="checkout"]').click();
+  // await expect(page.locator('[data-test="title"]')).toContainText('Checkout: Yours Information');
+  await expect(page.locator('[data-test="title"]')).toContainText(
+    "Checkout: Your Information"
+  );
+});

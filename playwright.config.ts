@@ -40,6 +40,12 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+     {
+      name: '24',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/24',
+      testIgnore: ['**/23/**'] //все кроме 23 папки
+    },
 
     // {
     //   name: 'firefox',

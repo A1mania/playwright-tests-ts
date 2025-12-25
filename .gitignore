@@ -9,3 +9,5 @@ reports
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+test-tracing.zip

@@ -39,11 +39,9 @@ test("check burger menu items", async ({ page }) => {
 
 //Locator assertion
 
-test("check burger menu is hidden when product page opens", async ({
-  page,
-}) => {
-  expect(page.locator(".bm-menu")).toBeHidden;
-});
+test("check burger menu is hidden when product page opens", async ({ page }) => {
+  await expect(page.locator(".bm-menu-wrap")).toHaveAttribute("aria-hidden", "true");
+  });
 
 //assertion with screenshot
 

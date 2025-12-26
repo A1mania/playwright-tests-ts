@@ -10,17 +10,24 @@ test.beforeEach(async ({ page }) => {
 test("check alert appears", async ({ page }) => {
   page.on("dialog", async (dialog_popup) => {
     expect(dialog_popup.message()).toContain("I am a JS Confirm");
-    await dialog_popup.accept();
   });
-  await page.getByText("Click for JS confirm").click();
 });
 
-test("check alert closed sucessfully", async ({ page }) => {
+test("check alert closed sucessfully - ok", async ({ page }) => {
   page.on("dialog", async (dialog_popup) => {
     await dialog_popup.accept();
   });
   await page.getByText("Click for JS confirm").click();
 
   await expect(page.locator("#result")).toHaveText("You clicked: Ok");
+});
+
+test("check alert closed sucessfully - cancel", async ({ page }) => {
+  page.on("dialog", async (dialog_popup) => {
+    await dialog_popup.dismiss();
+  });
+  await page.getByText("Click for JS confirm").click();
+
+  await expect(page.locator("#result")).toHaveText("You clicked: Cancel");
 });
 

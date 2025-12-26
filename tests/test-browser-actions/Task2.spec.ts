@@ -12,10 +12,15 @@ test("check new tab url", async ({ page, context }) => {
   const pagePromise = context.waitForEvent("page");
   await page.getByText("Click Here").click();
   const newPage = await pagePromise;
-  
-  await expect(newPage).toHaveURL(
-    "https://the-internet.herokuapp.com/windows/new"
-  )
+
+  // option 1
+  //   await expect(newPage).toHaveURL(
+  //     "https://the-internet.herokuapp.com/windows/new"
+  //   )
+  // });
+
+  // option2
+  await expect(newPage).toHaveTitle("New Window");
 });
 
 test("check new tab title", async ({ page, context }) => {

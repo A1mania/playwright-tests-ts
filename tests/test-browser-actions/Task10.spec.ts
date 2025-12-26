@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
 
 test("check menu buttons", async ({ page }) => {
   const menuButtons = await page
-    .locator(".tox-mbtn__select-label")
+    .locator(".tox-menubar button")
     .allInnerTexts();
 
   expect(menuButtons).toEqual(["File", "Edit", "View", "Format"]);

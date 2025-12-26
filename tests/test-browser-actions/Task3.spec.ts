@@ -11,8 +11,29 @@ test("check text appears on hover", async ({ page, context }) => {
   await expect(page.locator(".figure:first-of-type .figcaption")).toBeVisible();
   await expect(
     page.locator(".figure:first-of-type .figcaption h5")
-  ).toContainText("name: user1");
+  ).toHaveText("name: user1");
   await expect(
     page.locator(".figure:first-of-type .figcaption a")
-  ).toContainText("View profile");
+  ).toHaveText("View profile");
+});
+
+test("check text appears on hover of random image", async ({
+  page,
+  context,
+}) => {
+  await page.goto("https://the-internet.herokuapp.com/hovers");
+  await page.waitForSelector(".figure");
+  const imagesNumber = await page.locator(".figure").count();
+  const randomIndex = Math.floor(Math.random() * imagesNumber + 1);
+  await page.locator(`.figure:nth-of-type(${randomIndex}) img`).hover();
+
+  await expect(
+    page.locator(`.figure:nth-of-type(${randomIndex}) .figcaption`)
+  ).toBeVisible();
+  await expect(
+    page.locator(`.figure:nth-of-type(${randomIndex}) .figcaption h5`)
+  ).toHaveText(`name: user${randomIndex}`);
+  await expect(
+    page.locator(`.figure:nth-of-type(${randomIndex}) .figcaption a`)
+  ).toHaveText("View profile");
 });

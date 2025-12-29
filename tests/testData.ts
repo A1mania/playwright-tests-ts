@@ -1,5 +1,6 @@
 export const saucedemoData = {	
-	products: {
+	menuOptions:[ 'All Items', 'About', 'Logout', 'Reset App State' ],
+    products: {
 	sortingOptions: [
   'Name (A to Z)',
   'Name (Z to A)',

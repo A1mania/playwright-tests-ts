@@ -50,3 +50,52 @@ test("check page title", async ({ page }) => {
   const title = await page.evaluate(() => document.title)
   expect(title).toEqual("The Internet");
 });
+
+test("get table data", async ({ page }) => {
+ 
+  async function getTableData(tableNumber: number) {
+    const tableData = [];
+
+    const rows = await page.locator(`#table${tableNumber} tbody tr`).count();
+
+    for (let i = 0; i < rows; i++) {
+      const objectData = {
+        "Last Name": await page
+          .locator(
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(1)`
+          )
+          .innerText(),
+        "First Name": await page
+          .locator(
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(2)`
+          )
+          .innerText(),
+        "Email": await page
+          .locator(
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(3)`
+          )
+          .innerText(),
+        "Due": await page
+          .locator(
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(4)`
+          )
+          .innerText(),
+        "Web Site": await page
+          .locator(
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(5)`
+          )
+          .innerText(),
+        "Action": await page
+          .locator(
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(6)`
+          )
+          .innerText(),
+      };
+      tableData.push(objectData);
+    }
+    return tableData;
+  }
+  const data = await getTableData(2);
+  console.log(data);
+});
+

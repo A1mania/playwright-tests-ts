@@ -52,45 +52,24 @@ test("check page title", async ({ page }) => {
 });
 
 test("get table data", async ({ page }) => {
- 
   async function getTableData(tableNumber: number) {
     const tableData = [];
 
+    const headers = await page
+      .locator(`#table${tableNumber} thead th`)
+      .allInnerTexts();
+    console.log(headers);
     const rows = await page.locator(`#table${tableNumber} tbody tr`).count();
 
     for (let i = 0; i < rows; i++) {
-      const objectData = {
-        "Last Name": await page
+      const objectData: { [key: string]: string } = {};
+      for (let j = 0; j < headers.length; j++) {
+        objectData[headers[j]] = await page
           .locator(
-            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(1)`
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(${j + 1})`
           )
-          .innerText(),
-        "First Name": await page
-          .locator(
-            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(2)`
-          )
-          .innerText(),
-        "Email": await page
-          .locator(
-            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(3)`
-          )
-          .innerText(),
-        "Due": await page
-          .locator(
-            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(4)`
-          )
-          .innerText(),
-        "Web Site": await page
-          .locator(
-            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(5)`
-          )
-          .innerText(),
-        "Action": await page
-          .locator(
-            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(6)`
-          )
-          .innerText(),
-      };
+          .innerText();
+      }
       tableData.push(objectData);
     }
     return tableData;

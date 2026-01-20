@@ -42,6 +42,12 @@ export default defineConfig({
 
     },
 
+     {
+      name: 'api-tests',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/api',
+    },
+
     //  {
     //   name: 'problem-tests',
     //   use: { ...devices['Desktop Chrome'] ,
@@ -55,12 +61,12 @@ export default defineConfig({
     //   testDir: './',
     //   testMatch: 'global-setup.ts'
     // },
-    //  {
-    //   name: '24',
-    //   use: { ...devices['Desktop Chrome'] },
-    //   testDir: 'tests/24',
-    //   testIgnore: ['**/23/**'] //все кроме 23 папки
-    // },
+     {
+      name: '24',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/24',
+      testIgnore: ['**/23/**'] //все кроме 23 папки
+    },
 
     // {
     //   name: 'firefox',

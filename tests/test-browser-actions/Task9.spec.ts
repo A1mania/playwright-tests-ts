@@ -50,3 +50,31 @@ test("check page title", async ({ page }) => {
   const title = await page.evaluate(() => document.title)
   expect(title).toEqual("The Internet");
 });
+
+test("get table data", async ({ page }) => {
+  async function getTableData(tableNumber: number) {
+    const tableData = [];
+
+    const headers = await page
+      .locator(`#table${tableNumber} thead th`)
+      .allInnerTexts();
+    console.log(headers);
+    const rows = await page.locator(`#table${tableNumber} tbody tr`).count();
+
+    for (let i = 0; i < rows; i++) {
+      const objectData: { [key: string]: string } = {};
+      for (let j = 0; j < headers.length; j++) {
+        objectData[headers[j]] = await page
+          .locator(
+            `#table${tableNumber} tbody tr:nth-of-type(${i + 1}) td:nth-of-type(${j + 1})`
+          )
+          .innerText();
+      }
+      tableData.push(objectData);
+    }
+    return tableData;
+  }
+  const data = await getTableData(2);
+  console.log(data);
+});
+

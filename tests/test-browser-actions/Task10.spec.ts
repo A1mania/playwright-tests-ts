@@ -30,3 +30,16 @@ test("check iframe default text", async ({ page }) => {
     "Your content goes here."
   );
 });
+
+test("check form can be filled", async ({ page }) => {
+  await page.locator('div[role="alert"] .tox-icon').click();
+  const iFrame = page.frameLocator("#mce_0_ifr");
+  const editorBody = iFrame.locator("body#tinymce");
+  await editorBody.evaluate((el) => {
+    el.setAttribute("contenteditable", "true");
+  });
+
+  await editorBody.click();
+  await editorBody.fill("Anna");
+  await expect(editorBody).toContainText("Anna");
+});

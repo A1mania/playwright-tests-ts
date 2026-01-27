@@ -21,6 +21,7 @@ test("check drag and drop", async ({ page }) => {
 
   // option3
   await page.dragAndDrop("#column-a", "#column-b");
+  await page.waitForLoadState('domcontentloaded');
 
   expect(firstColumn).toHaveText("B");
 });

@@ -1,7 +1,7 @@
 import { Page, Locator } from "@playwright/test";
 import { BasePage } from "./basePage";
 
-export class Checkout1Page extends BasePage {
+export class CheckoutInfoPage extends BasePage {
   readonly firstnameInput: Locator;
   readonly lastnameInput: Locator;
   readonly zipInput: Locator;

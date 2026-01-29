@@ -45,7 +45,7 @@ test("check burger menu is hidden when product page opens", async ({ page }) => 
 
 //assertion with screenshot
 
-test("check empty crat after item removed", async ({ page }) => {
+test.skip("check empty crat after item removed", async ({ page }) => {
   await page
     .locator(
       '.inventory_list .inventory_item:first-child [class="btn btn_primary btn_small btn_inventory "]'

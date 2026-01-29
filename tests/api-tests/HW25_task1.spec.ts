@@ -375,7 +375,7 @@ test.describe("Test restful api", () => {
       });
     });
 
-    test.fail("update not existed object", async ({ request }) => {
+    test("update not existed object", async ({ request }) => {
       const tempObject = await request.post(url, {
         headers: { "Content-Type": "application/json" },
         data: {
@@ -647,10 +647,12 @@ test.describe("Test restful api", () => {
 
       const res = await request.patch(url + "/" + id, {
         data: {
-          year: 2020,
-          price: 3087.99,
-          "CPU model": "Intel Core i9 upd",
-          "Hard disk size": "2 TB",
+          data: {
+            year: 2020,
+            price: 3087.99,
+            "CPU model": "Intel Core i9 upd",
+            "Hard disk size": "2 TB",
+          },
         },
       });
 

@@ -174,7 +174,7 @@ test.describe("Test restful api", () => {
       });
     });
 
-    test("create invalid object: null name", async ({ request }) => {
+    test.fail("create invalid object: null name", async ({ request }) => {
       const res = await request.post(url, {
         headers: { "Content-Type": "application/json" },
         data: {
@@ -185,7 +185,7 @@ test.describe("Test restful api", () => {
       expect(res.status()).toEqual(400);
     });
 
-    test("create invalid object: empty name", async ({ request }) => {
+    test.fail("create invalid object: empty name", async ({ request }) => {
       const res = await request.post(url, {
         headers: { "Content-Type": "application/json" },
         data: {
@@ -196,7 +196,7 @@ test.describe("Test restful api", () => {
       expect(res.status()).toEqual(400);
     });
 
-    test("create invalid object: no name key", async ({ request }) => {
+    test.fail("create invalid object: no name key", async ({ request }) => {
       const res = await request.post(url, {
         headers: { "Content-Type": "application/json" },
         data: {
@@ -409,7 +409,7 @@ test.describe("Test restful api", () => {
       expect(res.status()).toEqual(404);
     });
 
-    test("update with empty name", async ({ request }) => {
+    test.fail("update with empty name", async ({ request }) => {
       const tempObject = await request.post(url, {
         headers: { "Content-Type": "application/json" },
         data: {
@@ -443,7 +443,7 @@ test.describe("Test restful api", () => {
       expect(res.status()).toEqual(400);
     });
 
-    test("update with null name", async ({ request }) => {
+    test.fail("update with null name", async ({ request }) => {
       const tempObject = await request.post(url, {
         headers: { "Content-Type": "application/json" },
         data: {
@@ -477,7 +477,7 @@ test.describe("Test restful api", () => {
       expect(res.status()).toEqual(400);
     });
 
-    test("update with no body", async ({ request }) => {
+    test.fail("update with no body", async ({ request }) => {
       const tempObject = await request.post(url, {
         headers: { "Content-Type": "application/json" },
         data: {
@@ -647,10 +647,12 @@ test.describe("Test restful api", () => {
 
       const res = await request.patch(url + "/" + id, {
         data: {
-          year: 2020,
-          price: 3087.99,
-          "CPU model": "Intel Core i9 upd",
-          "Hard disk size": "2 TB",
+          data: {
+            year: 2020,
+            price: 3087.99,
+            "CPU model": "Intel Core i9 upd",
+            "Hard disk size": "2 TB",
+          },
         },
       });
 

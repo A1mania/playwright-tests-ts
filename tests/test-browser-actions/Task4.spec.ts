@@ -5,7 +5,7 @@
 import { test, expect } from "@playwright/test";
 
 test("check drag and drop", async ({ page }) => {
-  await page.goto("https://the-internet.herokuapp.com/drag_and_drop");
+  await page.goto("https://the-internet.herokuapp.com/drag_and_drop", {timeout:12000});
   // const sourceEl = page.locator("#column-a");
   // const destinationEl = page.locator("#column-b");
   const firstColumn = page.locator("#columns :first-child header");
@@ -23,6 +23,6 @@ test("check drag and drop", async ({ page }) => {
   await page.dragAndDrop("#column-a", "#column-b");
   await page.waitForLoadState('domcontentloaded');
 
-  expect(firstColumn).toHaveText("B");
+  await expect(firstColumn).toHaveText("B");
 });
 

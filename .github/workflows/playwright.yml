@@ -36,10 +36,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Run Playwright tests
-      run: npx playwright test
       env:
         SCOPE: ${{ github.event.inputs.SCOPE || 'full' }}
-        RUN_ARGS: ${{ github.event.inputs.RUN_ARGS }}
+        RUN_ARGS: ${{ github.event.inputs.RUN_ARGS }} #e.g. --project api or playwright.spec.ts
       run: |
         echo "Event: ${{ github.event_name }}"
         echo "Scope: $SCOPE"

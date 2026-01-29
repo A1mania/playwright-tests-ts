@@ -39,13 +39,22 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      workers: 5
 
     },
 
      {
-      name: 'api-tests',
+      name: 'api',
       use: { ...devices['Desktop Chrome'] },
-      testDir: 'tests/api',
+      testDir: 'tests/api-tests',
+      workers: 5
+    },
+
+    {
+      name: 'e2e',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/POM',
+      workers: 5
     },
 
     //  {

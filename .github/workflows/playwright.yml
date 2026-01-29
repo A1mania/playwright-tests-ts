@@ -6,6 +6,22 @@ on:
     branches: [ main, master ]
   schedule:
     - cron: '0 8 * * *'  
+  workflow_dispatch:  # Manual trigger button
+    inputs:
+      SCOPE:
+        description: 'Test scope to run'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+          - api
+          - e2e
+          - full
+      RUN_ARGS:
+        description: 'Additional arguments for the test run'
+        required: false
+        default: ''
+        type: string  
 jobs:
   test:
     timeout-minutes: 10
@@ -21,6 +37,27 @@ jobs:
       run: npm ci
     - name: Run Playwright tests
       run: npx playwright test
+      env:
+        SCOPE: ${{ github.event.inputs.SCOPE || 'full' }}
+        RUN_ARGS: ${{ github.event.inputs.RUN_ARGS }}
+      run: |
+        echo "Event: ${{ github.event_name }}"
+        echo "Scope: $SCOPE"
+
+        if [ "${{ github.event_name }}" == "schedule" ]; then
+          echo "Executing scheduled run..."
+          npx playwright test
+        elif [ "$SCOPE" == "api" ]; then
+          npx playwright test --project api
+        elif [ "$SCOPE" == "e2e" ]; then
+          npx playwright test --project e2e
+        elif [ -n "$RUN_ARGS" ]; then
+          echo "Executing with custom args: $RUN_ARGS"
+          npx playwright test $RUN_ARGS
+        else
+          echo "Falling back to default run..."
+          npx playwright test
+        fi
     - name: Upload Playwright Report as Artifact
       if: ${{ !cancelled() }} # runs the step even if previous steps failed, but skips it if the workflow was manually cancelled.
       uses: actions/upload-artifact@v4

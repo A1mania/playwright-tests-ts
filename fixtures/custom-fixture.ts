@@ -1,7 +1,9 @@
 import { test as baseTest } from "@playwright/test";
+import { SwagLabs } from "../tests/POM/pageFactory";
 
 type MyFixture = {
     testIdGenerator: number;
+    swagLabs: SwagLabs;
 }
 
 export const test = baseTest.extend<MyFixture>({
@@ -10,4 +12,10 @@ export const test = baseTest.extend<MyFixture>({
         const randomIndex = Math.floor(Math.random() * max) + 1;
         await use(randomIndex);
     },
+
+    swagLabs: async ({ page }, use) => {
+        await use(new SwagLabs(page));
+    }
+
 });
+

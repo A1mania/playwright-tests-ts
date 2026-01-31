@@ -11,3 +11,6 @@ reports
 /playwright/.auth/
 
 test-tracing.zip
+allure-results
+allure-report
+logs
